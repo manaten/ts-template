@@ -13,7 +13,6 @@
     "isolatedModules": true,
     "incremental": true,
     "checkJs": true,
-    "baseUrl": "./",
   },
   "exclude": [
     "node_modules"
