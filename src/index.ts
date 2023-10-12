@@ -8,4 +8,4 @@ async function main() {
   test();
 }
 
-main().catch(e => console.error(e));
+main().catch((e) => console.error(e));
