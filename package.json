@@ -6,29 +6,26 @@
   "version": "1.0.0",
   "description": "manaten's ts-node cli script template.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node --esm --experimentalSpecifierResolution node src/index.ts",
+    "start": "tsx src/index.ts",
     "typecheck": "tsc --noEmit",
-    "prepare": "husky install",
-    "lint-staged": "lint-staged -c .lintstagedrc",
+    "prepare": "husky",
+    "lint-staged": "lint-staged",
     "fix": "eslint --fix ./**/*.{js,jsx,ts,tsx}",
     "prettier": "prettier --write --ignore-unknown ."
   },
-  "dependencies": {
-    "ts-node": "^10.9.1"
-  },
   "devDependencies": {
-    "@types/node": "^20.8.4",
-    "@typescript-eslint/eslint-plugin": "^6.7.5",
-    "@typescript-eslint/parser": "^6.7.5",
+    "@types/node": "^20.14.10",
+    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "@typescript-eslint/parser": "^7.15.0",
     "eclint": "^2.8.1",
-    "eslint": "^8.51.0",
-    "eslint-config-prettier": "^9.0.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-node": "^0.3.9",
-    "eslint-plugin-import": "^2.28.1",
-    "husky": "^8.0.3",
-    "lint-staged": "^14.0.1",
-    "prettier": "^3.0.3",
-    "typescript": "^5.2.2"
+    "eslint-plugin-import": "^2.29.1",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
+    "prettier": "^3.3.2",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3"
   }
 }

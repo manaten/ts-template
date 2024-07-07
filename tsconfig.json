@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "noEmit": true,
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
@@ -12,7 +13,8 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "incremental": true,
-    "checkJs": true
+    "checkJs": true,
+    "noUncheckedIndexedAccess": true
   },
   "exclude": ["node_modules"]
 }
