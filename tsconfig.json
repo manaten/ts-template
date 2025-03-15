@@ -3,7 +3,7 @@
     "noEmit": true,
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "lib": ["esnext", "dom"],
     "resolveJsonModule": true,
     "esModuleInterop": true,
