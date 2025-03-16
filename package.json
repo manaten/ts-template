@@ -1,6 +1,7 @@
 {
   "name": "ts-node-cli-template",
   "author": "manaten@manaten.net",
+  "private": true,
   "license": "MIT",
   "type": "module",
   "version": "1.0.0",
@@ -9,10 +10,12 @@
     "start": "tsx src/index.ts",
     "typecheck": "tsc --noEmit",
     "prepare": "husky",
-    "lint": "eslint **/*.{js,jsx,mjs,ts,tsx}",
+    "lint": "run-p lint:*",
+    "lint:js": "eslint **/*.{js,jsx,mjs,ts,tsx,vue}",
     "lint-staged": "lint-staged",
-    "fix": "eslint --fix ./**/*.{js,jsx,ts,tsx}",
-    "prettier": "prettier --write --ignore-unknown ."
+    "fix": "run-s fix:*",
+    "fix:js": "run-s \"lint:js -- --fix\"",
+    "fix:prettier": "prettier --write --ignore-unknown ."
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.7",
@@ -25,6 +28,7 @@
     "eslint-plugin-import": "^2.31.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^3.4.2",
     "tsx": "^4.19.3",
     "typescript": "5.5",
