@@ -7,7 +7,7 @@
   "version": "1.0.0",
   "description": "manaten's ts-node cli script template.",
   "scripts": {
-    "start": "tsx src/index.ts",
+    "start": "node src/index.ts",
     "typecheck": "tsc --noEmit",
     "prepare": "husky",
     "lint": "run-p lint:*",
@@ -30,8 +30,7 @@
     "lint-staged": "^15.5.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.4.2",
-    "tsx": "^4.19.3",
-    "typescript": "5.5",
-    "typescript-eslint": "^8.26.1"
+    "typescript": "5.8.3",
+    "typescript-eslint": "^8.31.0"
   }
 }
