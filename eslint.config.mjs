@@ -85,6 +85,7 @@ export default tsEslint.config(
       "no-undef": 0,
       "no-unused-vars": 0,
       "no-var": 2,
+      "object-shorthand": 2,
       "compat/compat": 0,
     },
   },
