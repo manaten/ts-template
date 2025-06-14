@@ -3,6 +3,7 @@
 import js from "@eslint/js";
 import tsParser from "@typescript-eslint/parser";
 import eslintConfigPrettier from "eslint-config-prettier";
+import functionalPlugin from "eslint-plugin-functional";
 // @ts-expect-error 型定義がないため
 import importPlugin from "eslint-plugin-import";
 import globals from "globals";
@@ -16,6 +17,7 @@ export default tsEslint.config(
   importPlugin.flatConfigs.recommended,
   tsEslint.configs.recommended,
   tsEslint.configs.eslintRecommended,
+  functionalPlugin.configs.noMutations,
   eslintConfigPrettier,
 
   {
@@ -33,6 +35,7 @@ export default tsEslint.config(
         ecmaFeatures: {
           jsx: true,
         },
+        project: "./tsconfig.json",
       },
     },
 
@@ -87,6 +90,7 @@ export default tsEslint.config(
       "no-var": 2,
       "object-shorthand": 2,
       "compat/compat": 0,
+      "functional/prefer-immutable-types": 0,
     },
   },
 );
