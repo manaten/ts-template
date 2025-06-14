@@ -91,6 +91,7 @@ export default tsEslint.config(
       "object-shorthand": 2,
       "compat/compat": 0,
       "functional/prefer-immutable-types": 0,
+      "functional/type-declaration-immutability": 0,
     },
   },
 );
