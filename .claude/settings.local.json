@@ -4,7 +4,9 @@
       "Bash(npm run lint)",
       "Bash(git add:*)",
       "Bash(git checkout:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)"
     ],
     "deny": []
   }
