@@ -8,10 +8,11 @@
   "description": "manaten's ts-node cli script template.",
   "scripts": {
     "start": "node src/index.ts",
+    "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "prepare": "husky",
     "lint": "run-p lint:*",
-    "lint:js": "eslint **/*.{js,jsx,mjs,ts,tsx,vue}",
+    "lint:js": "eslint **/*.{js,jsx,mjs,ts,tsx}",
     "lint-staged": "lint-staged",
     "fix": "run-s fix:*",
     "fix:js": "run-s \"lint:js -- --fix\"",
@@ -36,6 +37,7 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^3.4.2",
     "typescript": "5.8.3",
-    "typescript-eslint": "^8.31.0"
+    "typescript-eslint": "^8.31.0",
+    "vitest": "^3.2.4"
   }
 }
