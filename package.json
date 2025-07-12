@@ -12,7 +12,7 @@
     "typecheck": "tsc --noEmit",
     "prepare": "husky",
     "lint": "run-p lint:*",
-    "lint:js": "eslint **/*.{js,jsx,mjs,ts,tsx,vue}",
+    "lint:js": "eslint **/*.{js,jsx,mjs,ts,tsx}",
     "lint-staged": "lint-staged",
     "fix": "run-s fix:*",
     "fix:js": "run-s \"lint:js -- --fix\"",
