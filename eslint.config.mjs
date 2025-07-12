@@ -5,7 +5,6 @@ import tsParser from "@typescript-eslint/parser";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginBetterTailwindcss from "eslint-plugin-better-tailwindcss";
 import functionalPlugin from "eslint-plugin-functional";
-// @ts-expect-error 型定義がないため
 import importPlugin from "eslint-plugin-import";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
