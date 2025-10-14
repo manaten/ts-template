@@ -28,7 +28,6 @@ updates:
       prod-major-updates:
         # dependabot不具合のため、一時的にコメントアウト
         # ref https://github.com/dependabot/dependabot-core/issues/13154
-        # ref https://github.com/lakehq/sail/pull/971
         #
         # patterns:
         #   - "*"
