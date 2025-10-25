@@ -15,7 +15,7 @@ import tsEslint from "typescript-eslint";
 
 export default defineConfig(
   {
-    ignores: ["dist", "node_modules"],
+    ignores: ["**/dist/**", "**/node_modules/**", "**/.next/**", "**/out/**"],
   },
   js.configs.recommended,
   importPlugin.flatConfigs.recommended,
