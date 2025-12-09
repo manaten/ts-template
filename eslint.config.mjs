@@ -26,7 +26,6 @@ export default defineConfig(
   eslintConfigPrettier,
 
   // 非Reactプロジェクトの場合は以下のブロックと関連するimportを削除してください
-  // @ts-expect-error 型定義がおかしいため
   storybook.configs["flat/recommended"],
   // @ts-expect-error 型定義がおかしいため
   reactHooks.configs.flat.recommended,
