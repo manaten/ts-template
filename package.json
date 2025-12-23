@@ -12,7 +12,7 @@
     "fix:prettier": "prettier --write --ignore-unknown .",
     "lint": "run-p lint:*",
     "lint-staged": "lint-staged",
-    "lint:js": "eslint **/*.{js,jsx,mjs,ts,tsx}",
+    "lint:js": "eslint '**/*.{js,jsx,mjs,ts,tsx}'",
     "prepare": "husky",
     "start": "node src/index.ts",
     "test": "vitest run",
