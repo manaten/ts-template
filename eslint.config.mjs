@@ -8,7 +8,7 @@ import eslintPluginBetterTailwindcss from "eslint-plugin-better-tailwindcss";
 import functionalPlugin from "eslint-plugin-functional";
 import importPlugin from "eslint-plugin-import";
 import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
+import { reactRefresh } from "eslint-plugin-react-refresh";
 import storybook from "eslint-plugin-storybook";
 import globals from "globals";
 import tsEslint from "typescript-eslint";
@@ -21,11 +21,11 @@ export default defineConfig(
   importPlugin.flatConfigs.recommended,
   tsEslint.configs.recommended,
   tsEslint.configs.eslintRecommended,
-  // @ts-expect-error 型定義がおかしいため
   functionalPlugin.configs.noMutations,
   eslintConfigPrettier,
 
   // 非Reactプロジェクトの場合は以下のブロックと関連するimportを削除してください
+  // @ts-expect-error 型定義がおかしい
   storybook.configs["flat/recommended"],
   reactHooks.configs.flat.recommended,
 
