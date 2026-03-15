@@ -6,6 +6,20 @@
 
 version: 2
 updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 5
+    groups:
+      all-actions:
+        patterns:
+          - "*"
+    open-pull-requests-limit: 5
+    assignees:
+      - "manaten"
+
   - package-ecosystem: "devcontainers"
     directory: "/"
     schedule:
@@ -24,6 +38,8 @@ updates:
     directory: "/"
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 5
     groups:
       prod-major-updates:
         # dependabot不具合のため、一時的にコメントアウト
