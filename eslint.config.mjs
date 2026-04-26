@@ -6,7 +6,7 @@ import { defineConfig } from "eslint/config";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginBetterTailwindcss from "eslint-plugin-better-tailwindcss";
 import functionalPlugin from "eslint-plugin-functional";
-import importPlugin from "eslint-plugin-import";
+import { importX } from "eslint-plugin-import-x";
 import reactHooks from "eslint-plugin-react-hooks";
 import { reactRefresh } from "eslint-plugin-react-refresh";
 import storybook from "eslint-plugin-storybook";
@@ -18,7 +18,7 @@ export default defineConfig(
     ignores: ["**/dist/**", "**/node_modules/**", "**/.next/**", "**/out/**"],
   },
   js.configs.recommended,
-  importPlugin.flatConfigs.recommended,
+  importX.flatConfigs.recommended,
   tsEslint.configs.recommended,
   tsEslint.configs.eslintRecommended,
   functionalPlugin.configs.noMutations,
@@ -61,7 +61,7 @@ export default defineConfig(
 
   {
     rules: {
-      "import/order": [
+      "import-x/order": [
         "error",
         {
           groups: [
@@ -104,8 +104,8 @@ export default defineConfig(
         },
       ],
 
-      "import/named": 0,
-      "import/no-unresolved": 0,
+      "import-x/named": 0,
+      "import-x/no-unresolved": 0,
       "no-undef": 0,
       "no-unused-vars": 0,
       "no-var": 2,
