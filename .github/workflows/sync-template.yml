@@ -11,6 +11,8 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    env:
+      BRANCH_NAME: sync-template
 
     steps:
       - name: 🛎 Checkout
@@ -51,7 +53,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          EXISTING_PR=$(gh pr list --search "Sync template" --state open --json number --jq '.[0].number')
+          EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --state open --json number --jq '.[0].number')
           if [ -n "$EXISTING_PR" ]; then
             echo "existing_pr=true" >> $GITHUB_OUTPUT
             echo "::notice::既存のPR #$EXISTING_PR があるためスキップします"
@@ -62,8 +64,8 @@ jobs:
       - name: 🌿 Create sync branch
         if: steps.check_updates.outputs.has_updates == 'true' && steps.check_pr.outputs.existing_pr == 'false'
         run: |
-          BRANCH_NAME="sync-template-$(date +%Y%m%d-%H%M%S)"
-          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          # 既存PRがないことは確認済みなので、残っているリモートブランチは安全に削除できる
+          git push origin --delete "$BRANCH_NAME" 2>/dev/null || true
           git checkout -b "$BRANCH_NAME"
 
       - name: 🔄 Merge template changes
@@ -110,30 +112,41 @@ jobs:
           git merge --abort || true
           git merge --no-commit --no-ff template/main || true
 
-          # Commit with conflict markers if there are conflicts
+          # コンフリクトしたファイル一覧をPR本文用に保存
+          CONFLICTED_FILES=$(git diff --name-only --diff-filter=U | sort)
+
+          # コンフリクトマーカーを含めてcommit
           git add .
           git commit -m "Merge template updates (with conflicts)" || true
 
           git push origin "$BRANCH_NAME"
+
+          # PR本文をheredocで生成（コンフリクトファイル一覧を箇条書きで埋め込む）
+          {
+            echo "This PR attempts to sync the latest changes from the [ts-template](https://github.com/manaten/ts-template) repository."
+            echo ""
+            echo "## ⚠️ Conflicts detected"
+            echo ""
+            echo "The following files have conflict markers and need manual resolution:"
+            echo ""
+            echo "$CONFLICTED_FILES" | sed 's|^|- `|; s|$|`|'
+            echo ""
+            echo "Resolve them by checking out this branch, fixing the conflicts, and pushing back."
+            echo ""
+            echo "## Changes"
+            echo "This PR includes the following commits from the template:"
+            echo ""
+            echo '```'
+            git log --oneline HEAD~1...template/main | head -10
+            echo '```'
+            echo ""
+            echo "---"
+            echo "🤖 This PR was automatically created by the sync-template workflow."
+          } > /tmp/pr_body.md
+
           gh pr create \
             --title "⚠️ Sync template updates (with conflicts)" \
-            --body "This PR attempts to sync the latest changes from the [ts-template](https://github.com/manaten/ts-template) repository.
-
-          ## ⚠️ Conflicts detected
-          The merge resulted in conflicts. Please resolve the conflicts manually:
-
-          1. Check out this branch
-          2. Resolve conflicts in the affected files
-          3. Commit the resolved changes
-          4. Push to this branch
-
-          ## Changes
-          This PR includes the following commits from the template:
-
-          $(git log --oneline HEAD...template/main | head -10)
-
-          ---
-          🤖 This PR was automatically created by the sync-template workflow." \
+            --body-file /tmp/pr_body.md \
             --base main \
             --head "$BRANCH_NAME"
 
