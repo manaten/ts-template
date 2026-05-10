@@ -47,6 +47,31 @@ jobs:
             echo "has_updates=false" >> $GITHUB_OUTPUT
           fi
 
+      # GITHUB_TOKEN は `.github/workflows/` 配下を更新する権限を持たないため、
+      # workflow ファイルに変更が含まれる場合は自動 push が必ず失敗する。
+      # そのまま進めると後段の push で失敗して通知される設計だが、原因が
+      # 分かりにくいので事前に検出して明示的なメッセージで失敗させる。
+      - name: 🔍 Check workflow file changes
+        if: steps.check_updates.outputs.has_updates == 'true'
+        run: |
+          WORKFLOW_CHANGES=$(git diff --name-only HEAD..template/main -- .github/workflows/)
+          if [ -n "$WORKFLOW_CHANGES" ]; then
+            {
+              echo "::error::Template に .github/workflows/ 配下の変更が含まれているため自動同期できません。ローカルで手動マージ・push してください。"
+              echo "変更されたワークフローファイル:"
+              echo "$WORKFLOW_CHANGES" | sed 's/^/  - /'
+              echo ""
+              echo "手動同期手順:"
+              echo "  git remote add template https://github.com/manaten/ts-template.git  # 未追加なら"
+              echo "  git fetch template main"
+              echo "  git checkout -b sync-template"
+              echo "  git merge template/main"
+              echo "  # コンフリクトを解消したら"
+              echo "  git push origin sync-template"
+            } >&2
+            exit 1
+          fi
+
       - name: 🔍 Check existing PR
         if: steps.check_updates.outputs.has_updates == 'true'
         id: check_pr
@@ -163,3 +188,12 @@ jobs:
             git push origin --delete "$BRANCH_NAME" 2>/dev/null || true
             echo "::warning::PR作成に失敗したためブランチ $BRANCH_NAME を削除しました"
           fi
+
+      # create_pr / create_pr_conflict は `continue-on-error: true` のため、
+      # 失敗してもジョブ自体は success になってしまい通知されない。
+      # ここで明示的に失敗させて Actions の失敗通知が飛ぶようにする。
+      - name: ❌ Fail job if PR creation failed
+        if: steps.create_pr.outcome == 'failure' || steps.create_pr_conflict.outcome == 'failure'
+        run: |
+          echo "::error::PR の作成または push に失敗しました。ログを確認し、必要に応じて手動で同期してください。"
+          exit 1
