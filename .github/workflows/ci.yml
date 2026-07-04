@@ -21,10 +21,10 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: Kesin11/actions-timeline@v3
+      - uses: Kesin11/actions-timeline@v3.1.0
 
       - name: 🛎 Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🏗 Setup node env
         uses: actions/setup-node@v6
